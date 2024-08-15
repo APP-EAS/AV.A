@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Read CNAME
+        id: cname
+        run: echo "CNAME=$(cat CNAME)" >> $GITHUB_OUTPUT
+
+      - name: Inject BASE_URL
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: |
+          PROCESSED_VALUE=$(echo -n "$BASE_URL" | xxd -p | tr -d '\n')
+          sed -i "s/PLACEHOLDER_STRING/$PROCESSED_VALUE/" index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        with:
+          cname: ${{ steps.cname.outputs.CNAME }}
