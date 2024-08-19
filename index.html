@@ -77,18 +77,20 @@
         var _0x6d7c = document.getElementById('app-frame');
         _0x6d7c.src = _0x4b5a;
 
-        var _0x9e8f = "736372697074" + "2E676F6F67" + "6C652E636F" + "6D20726566" + "7573656420" + "746F20636F" + "6E6E656374";
+        var _0x9e8f = "73657373696F6E20746F6B656E206973206578706972656420" + 
+                      "6F7220696E76616C6964";
         var _0x7a3b = _0x2a1b(_0x9e8f);
 
         _0x6d7c.onload = function() {
             if (_0x7e6f !== 'login' && _0x8d9c) {
                 try {
                     var _0x4c2d = _0x6d7c.contentDocument || _0x6d7c.contentWindow.document;
-                    if (_0x4c2d.body.innerHTML.includes(_0x7a3b)) {
+                    if (_0x4c2d.body.innerText.toLowerCase().includes(_0x7a3b)) {
                         _0x1f3e();
                     }
                 } catch (e) {
-                    _0x1f3e();
+                    // If we can't access the iframe content, don't show an error
+                    console.log("Unable to access iframe content");
                 }
             }
         };
