@@ -22,6 +22,7 @@
             left: 0;
         }
         #error-message {
+            display: none;
             position: fixed;
             top: 50%;
             left: 50%;
@@ -31,26 +32,14 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            max-width: 80%;
-            display: none;
-        }
-        #error-message button {
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #991b1b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
     <iframe id="app-frame"></iframe>
-    <div id="error-message">
-        <p id="error-text"></p>
-        <button onclick="location.reload()">Refresh Page</button>
-    </div>
+    <div id="error-message"></div>
     <script>
         (function() {
             var _0x5f4e3d = "PLACEHOLDER_STRING";
@@ -69,54 +58,53 @@
                 _0x4b5a += '&sessionToken=' + _0x8d9c;
             }
             
-            var iframe = document.getElementById('app-frame');
-            var errorMessage = document.getElementById('error-message');
-            var errorText = document.getElementById('error-text');
+            var _0x6d7c = document.getElementById('app-frame');
+            var _0x9f8e = document.getElementById('error-message');
 
-            iframe.onload = function() {
+            function showError(message) {
+                _0x9f8e.textContent = message;
+                _0x9f8e.style.display = 'block';
+                setTimeout(function() {
+                    _0x9f8e.style.display = 'none';
+                }, 5000);
+            }
+
+            function redirectToLogin() {
+                window.location.href = 'https://apexvoiceagent.eliteaisolutions.com/';
+            }
+
+            _0x6d7c.onload = function() {
                 try {
-                    // Check if the iframe content is accessible
-                    var iframeContent = iframe.contentWindow.document.body.innerHTML;
-                    if (iframeContent.includes("refused to connect")) {
-                        throw new Error("Connection refused");
+                    var _0x2c3d = _0x6d7c.contentWindow.location.href;
+                    if (_0x2c3d.includes('script.google.com')) {
+                        redirectToLogin();
                     }
-                } catch (error) {
-                    if (error.message === "Connection refused") {
-                        showError("Session expired or invalid. Please refresh the page and log in again.");
-                    } else if (error.message.includes("cross-origin")) {
-                        showError("Unable to access content. This might be due to network issues or an expired session.");
-                    } else {
-                        showError("An unexpected error occurred. Please try refreshing the page.");
+                } catch (e) {
+                    if (e.name === 'SecurityError') {
+                        redirectToLogin();
                     }
                 }
             };
 
-            iframe.onerror = function() {
-                showError("Failed to load the content. Please check your internet connection and try again.");
+            _0x6d7c.onerror = function() {
+                showError('An error occurred. Please try again.');
+                setTimeout(redirectToLogin, 3000);
             };
 
-            function showError(message) {
-                errorText.textContent = message;
-                errorMessage.style.display = 'block';
-                iframe.style.display = 'none';
+            _0x6d7c.src = _0x4b5a;
+
+            function _0x1c9e() {
+                _0x6d7c.style.height = window.innerHeight + 'px';
             }
 
-            iframe.src = _0x4b5a;
+            window.addEventListener('resize', _0x1c9e);
+            _0x1c9e();
 
-            function _0x9f8e() {
-                iframe.style.height = window.innerHeight + 'px';
-            }
-
-            window.addEventListener('resize', _0x9f8e);
-            _0x9f8e();
-
-            // Handle network errors
-            window.addEventListener('offline', function() {
-                showError("You are offline. Please check your internet connection and try again.");
-            });
-
-            window.addEventListener('online', function() {
-                location.reload();
+            window.addEventListener('message', function(event) {
+                if (event.data === 'sessionExpired') {
+                    showError('Your session has expired. Please log in again.');
+                    setTimeout(redirectToLogin, 3000);
+                }
             });
         })();
     </script>
