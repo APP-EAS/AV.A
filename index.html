@@ -94,19 +94,32 @@
             loadPage();
         } else {
             // Check session validity
-            fetch(_0x3c4d + '?page=checkSession&sessionToken=' + _0x8d9c)
-            .then(response => response.json())
-            .then(data => {
-                if (data.valid) {
-                    loadPage();
+            var _0x4b5a = _0x3c4d + '?page=checkSession&sessionToken=' + _0x8d9c;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', _0x4b5a, true);
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        if (data.valid) {
+                            loadPage();
+                        } else {
+                            _0x1f3e();
+                        }
+                    } catch (e) {
+                        console.error('Error parsing response:', e);
+                        _0x1f3e();
+                    }
                 } else {
+                    console.error('Server error');
                     _0x1f3e();
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
+            };
+            xhr.onerror = function() {
+                console.error('Connection error');
                 _0x1f3e();
-            });
+            };
+            xhr.send();
         }
 
         function loadPage() {
