@@ -21,75 +21,79 @@
             top: 0;
             left: 0;
         }
-        #error-message {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fee2e2;
-            color: #991b1b;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            z-index: 1000;
-        }
     </style>
 </head>
 <body>
     <iframe id="app-frame"></iframe>
-    <div id="error-message"></div>
     <script>
-        (function() {
-            var _0x5f4e3d = "PLACEHOLDER_STRING";
-            var _0x2a1b = function(s) {
-                return String.fromCharCode.apply(null, s.match(/.{1,2}/g).map(function(c) {
-                    return parseInt(c, 16);
-                }));
-            };
-            var _0x3c4d = _0x2a1b(_0x5f4e3d);
-            var _0x1a2b = new URLSearchParams(window.location.search);
-            var _0x7e6f = _0x1a2b.get('page') || 'login';
-            var _0x8d9c = _0x1a2b.get('sessionToken') || '';
-            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
-            if (_0x8d9c) {
-                _0x4b5a += '&sessionToken=' + _0x8d9c;
-            }
-            
-            function _0x9f8e() {
-                var _0x6d7c = document.getElementById('app-frame');
-                _0x6d7c.style.height = window.innerHeight + 'px';
-            }
+    (function() {
+        var _0x5f4e3d = "PLACEHOLDER_STRING";
+        var _0x2a1b = function(s) {
+            return String.fromCharCode.apply(null, s.match(/.{1,2}/g).map(function(c) {
+                return parseInt(c, 16);
+            }));
+        };
+        var _0x3c4d = _0x2a1b(_0x5f4e3d);
+        var _0x1a2b = new URLSearchParams(window.location.search);
+        var _0x7e6f = _0x1a2b.get('page') || 'login';
+        var _0x8d9c = _0x1a2b.get('sessionToken') || '';
+        var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
+        if (_0x8d9c) {
+            _0x4b5a += '&sessionToken=' + _0x8d9c;
+        }
         
-            function showErrorMessage(message) {
-                var errorDiv = document.createElement('div');
-                errorDiv.style.position = 'fixed';
-                errorDiv.style.top = '50%';
-                errorDiv.style.left = '50%';
-                errorDiv.style.transform = 'translate(-50%, -50%)';
-                errorDiv.style.backgroundColor = '#fee2e2';
-                errorDiv.style.color = '#991b1b';
-                errorDiv.style.padding = '20px';
-                errorDiv.style.borderRadius = '8px';
-                errorDiv.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                errorDiv.style.zIndex = '1000';
-                errorDiv.style.textAlign = 'center';
-                errorDiv.innerHTML = message + '<br><br><a href="/" style="color: #3b82f6; text-decoration: none;">Return to Login</a>';
-                document.body.appendChild(errorDiv);
+        function _0x9f8e() {
+            var _0x6d7c = document.getElementById('app-frame');
+            _0x6d7c.style.height = window.innerHeight + 'px';
+        }
+
+        function _0x7a3b(message) {
+            var _0x2c1d = document.createElement('div');
+            _0x2c1d.style.position = 'fixed';
+            _0x2c1d.style.top = '50%';
+            _0x2c1d.style.left = '50%';
+            _0x2c1d.style.transform = 'translate(-50%, -50%)';
+            _0x2c1d.style.backgroundColor = '#fee2e2';
+            _0x2c1d.style.color = '#991b1b';
+            _0x2c1d.style.padding = '20px';
+            _0x2c1d.style.borderRadius = '8px';
+            _0x2c1d.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            _0x2c1d.style.zIndex = '1000';
+            _0x2c1d.style.textAlign = 'center';
+            _0x2c1d.innerHTML = message + '<br><br><a href="/" style="color: #3b82f6; text-decoration: none;">Return to Login</a>';
+            document.body.appendChild(_0x2c1d);
+        }
+
+        var _0x1f3d = document.getElementById('app-frame');
+        _0x1f3d.style.display = 'none';
+
+        _0x1f3d.onload = function() {
+            var _0x4e2a = _0x1f3d.contentDocument.body.innerHTML;
+            var _0x6b9c = _0x1f3d.contentWindow.location.href;
+            var _0x8f1e = _0x2a1b("736372697074002E676F6F676C65002E636F6D");
+            if (_0x4e2a.includes(_0x8f1e.split('00').join('.')) ||
+                _0x6b9c.includes(_0x8f1e.split('00').join('.'))) {
+                _0x7a3b('Your session has expired or is invalid. Please log in again.');
+            } else {
+                _0x1f3d.style.display = 'block';
             }
-        
-            var iframe = document.getElementById('app-frame');
-            iframe.onload = function() {
-                if (iframe.contentWindow.location.href.includes('script.google.com/macros')) {
-                    iframe.style.display = 'none';
-                    showErrorMessage('Your session has expired or is invalid. Please log in again.');
-                }
-            };
-            iframe.src = _0x4b5a;
-        
-            window.addEventListener('resize', _0x9f8e);
-            _0x9f8e();
-        })();
-        </script>
+        };
+
+        _0x1f3d.onerror = function() {
+            _0x7a3b('An error occurred. Please try again later.');
+        };
+
+        _0x1f3d.src = _0x4b5a;
+
+        window.addEventListener('resize', _0x9f8e);
+        _0x9f8e();
+
+        window.addEventListener('message', function(event) {
+            if (event.data === 'SESSION_INVALID') {
+                _0x7a3b('Your session has expired or is invalid. Please log in again.');
+            }
+        });
+    })();
+    </script>
 </body>
 </html>
