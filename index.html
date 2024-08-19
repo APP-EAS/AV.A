@@ -71,21 +71,18 @@
 
         var _0x1f3d = document.getElementById('app-frame');
 
-        _0x1f3d.onload = function() {
-            if (_0x1f3d.contentWindow.location.href === 'about:blank') {
-                _0x7a3b('Your session has expired or is invalid. Please log in again.');
-            }
-        };
-
-        _0x1f3d.onerror = function() {
-            _0x7a3b('An error occurred. Please try again later.');
-        };
-
         window.addEventListener('message', function(event) {
-            if (event.data === 'SESSION_INVALID') {
+            if (event.data && event.data.type === 'SESSION_INVALID') {
                 _0x7a3b('Your session has expired or is invalid. Please log in again.');
             }
-        });
+        }, false);
+
+        _0x1f3d.onload = function() {
+            // This will catch any other loading errors
+            if (_0x1f3d.contentDocument.body.innerHTML.includes('Error')) {
+                _0x7a3b('An error occurred. Please try again later.');
+            }
+        };
 
         _0x1f3d.src = _0x4b5a;
 
