@@ -22,24 +22,42 @@
             left: 0;
         }
         #error-message {
-            display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #fee2e2;
-            color: #991b1b;
+            background-color: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             text-align: center;
+            font-family: Arial, sans-serif;
+            display: none;
+        }
+        #error-message h2 {
+            margin-top: 0;
+            color: #e53e3e;
+        }
+        #error-message p {
+            margin-bottom: 20px;
+        }
+        #error-message button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <iframe id="app-frame"></iframe>
-    <div id="error-message"></div>
+    <div id="error-message">
+        <h2>Session Expired</h2>
+        <p>Your session has expired or is invalid. Please log in again.</p>
+        <button onclick="redirectToLogin()">Go to Login</button>
+    </div>
     <script>
     (function() {
         var _0x5f4e3d = "PLACEHOLDER_STRING";
@@ -56,44 +74,36 @@
         if (_0x8d9c) {
             _0x4b5a += '&sessionToken=' + _0x8d9c;
         }
-        
+        var appFrame = document.getElementById('app-frame');
+        appFrame.src = _0x4b5a;
+
+        appFrame.onload = function() {
+            try {
+                var frameContent = appFrame.contentDocument || appFrame.contentWindow.document;
+                if (frameContent.body.innerHTML.includes("script.google.com refused to connect")) {
+                    showErrorMessage();
+                }
+            } catch (e) {
+                showErrorMessage();
+            }
+        };
+
+        function showErrorMessage() {
+            appFrame.style.display = 'none';
+            document.getElementById('error-message').style.display = 'block';
+        }
+
         function _0x9f8e() {
             var _0x6d7c = document.getElementById('app-frame');
             _0x6d7c.style.height = window.innerHeight + 'px';
         }
-
-        function _0x7a3b(message) {
-            var _0x2c1d = document.getElementById('error-message');
-            _0x2c1d.innerHTML = message + '<br><br><a href="/" style="color: #3b82f6; text-decoration: none;">Return to Login</a>';
-            _0x2c1d.style.display = 'block';
-            document.getElementById('app-frame').style.display = 'none';
-        }
-
-        var _0x1f3d = document.getElementById('app-frame');
-
-        _0x1f3d.onload = function() {
-            try {
-                var contentType = _0x1f3d.contentDocument.contentType || _0x1f3d.contentDocument.mimeType;
-                if (contentType === 'application/json') {
-                    var jsonContent = JSON.parse(_0x1f3d.contentDocument.body.textContent);
-                    if (jsonContent.type === 'SESSION_INVALID' || jsonContent.type === 'ERROR') {
-                        _0x7a3b(jsonContent.message);
-                    }
-                }
-            } catch (error) {
-                console.error('Error in iframe onload:', error);
-            }
-        };
-
-        _0x1f3d.onerror = function() {
-            _0x7a3b('An error occurred. Please try again later.');
-        };
-
-        _0x1f3d.src = _0x4b5a;
-
         window.addEventListener('resize', _0x9f8e);
         _0x9f8e();
     })();
+
+    function redirectToLogin() {
+        window.location.href = window.location.origin;
+    }
     </script>
 </body>
 </html>
