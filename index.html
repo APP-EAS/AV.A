@@ -90,8 +90,10 @@
             _0x6d7c.style.height = window.innerHeight + 'px';
         }
 
-        if (_0x7e6f === 'login' || !_0x8d9c) {
-            loadPage();
+        if (_0x7e6f === 'login') {
+            window.location.href = _0x3c4d + '?page=login';
+        } else if (!_0x8d9c) {
+            redirectToLogin();
         } else {
             // Check session validity
             var _0x4b5a = _0x3c4d + '?page=checkSession&sessionToken=' + _0x8d9c;
@@ -104,29 +106,26 @@
                         if (data.valid) {
                             loadPage();
                         } else {
-                            _0x1f3e();
+                            redirectToLogin();
                         }
                     } catch (e) {
                         console.error('Error parsing response:', e);
-                        _0x1f3e();
+                        redirectToLogin();
                     }
                 } else {
                     console.error('Server error');
-                    _0x1f3e();
+                    redirectToLogin();
                 }
             };
             xhr.onerror = function() {
                 console.error('Connection error');
-                _0x1f3e();
+                redirectToLogin();
             };
             xhr.send();
         }
 
         function loadPage() {
-            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
-            if (_0x8d9c) {
-                _0x4b5a += '&sessionToken=' + _0x8d9c;
-            }
+            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f + '&sessionToken=' + _0x8d9c;
             var _0x6d7c = document.getElementById('app-frame');
             _0x6d7c.src = _0x4b5a;
             _0x6d7c.onload = function() {
@@ -139,7 +138,7 @@
     })();
 
     function redirectToLogin() {
-        window.location.href = window.location.origin;
+        window.location.href = _0x3c4d + '?page=login';
     }
     </script>
 </body>
