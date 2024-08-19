@@ -80,28 +80,28 @@
                 return true;
             }
 
+            function _0x5a2d(_0x4b5a) {
+                var _0x2f1b = new XMLHttpRequest();
+                _0x2f1b.open('GET', _0x4b5a, true);
+                _0x2f1b.onreadystatechange = function() {
+                    if (_0x2f1b.readyState === 4) {
+                        if (_0x2f1b.status === 200) {
+                            _0x6d7c.srcdoc = _0x2f1b.responseText;
+                        } else {
+                            _0x7b4f(_0x2a1b('4661696c656420746f206c6f61642074686520706167652e20506c656173652074727920616761696e206c61746572'));
+                            setTimeout(_0x1c3e, 3000);
+                        }
+                    }
+                };
+                _0x2f1b.send();
+            }
+
             if (_0x4e2f()) {
                 var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
                 if (_0x8d9c) {
                     _0x4b5a += '&sessionToken=' + _0x8d9c;
                 }
-                _0x6d7c.src = _0x4b5a;
-
-                _0x6d7c.onload = function() {
-                    try {
-                        var _0x4f1a = _0x6d7c.contentWindow.location.href;
-                    } catch (_0x3b2c) {
-                        console.error(_0x2a1b('4572726f722061636365737373696e672069667261616d6520636f6e74656e743a'), _0x3b2c);
-                        _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
-                        setTimeout(_0x1c3e, 3000);
-                        return;
-                    }
-                };
-
-                _0x6d7c.onerror = function() {
-                    _0x7b4f(_0x2a1b('4661696c656420746f206c6f61642074686520706167652e20506c656173652074727920616761696e206c61746572'));
-                    setTimeout(_0x1c3e, 3000);
-                };
+                _0x5a2d(_0x4b5a);
             }
 
             window.addEventListener('resize', _0x3d2e);
