@@ -21,10 +21,25 @@
             top: 0;
             left: 0;
         }
+        #error-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <iframe id="app-frame"></iframe>
+    <div id="error-message"></div>
     <script>
     (function() {
         var _0x5f4e3d = "PLACEHOLDER_STRING";
@@ -48,39 +63,35 @@
         }
 
         function _0x7a3b(message) {
-            var _0x2c1d = document.createElement('div');
-            _0x2c1d.style.position = 'fixed';
-            _0x2c1d.style.top = '50%';
-            _0x2c1d.style.left = '50%';
-            _0x2c1d.style.transform = 'translate(-50%, -50%)';
-            _0x2c1d.style.backgroundColor = '#fee2e2';
-            _0x2c1d.style.color = '#991b1b';
-            _0x2c1d.style.padding = '20px';
-            _0x2c1d.style.borderRadius = '8px';
-            _0x2c1d.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-            _0x2c1d.style.zIndex = '1000';
-            _0x2c1d.style.textAlign = 'center';
+            var _0x2c1d = document.getElementById('error-message');
             _0x2c1d.innerHTML = message + '<br><br><a href="/" style="color: #3b82f6; text-decoration: none;">Return to Login</a>';
-            document.body.appendChild(_0x2c1d);
+            _0x2c1d.style.display = 'block';
         }
 
         var _0x1f3d = document.getElementById('app-frame');
-        _0x1f3d.style.display = 'none';
 
         _0x1f3d.onload = function() {
-            var _0x4e2a = _0x1f3d.contentDocument.body.innerHTML;
-            var _0x6b9c = _0x1f3d.contentWindow.location.href;
-            var _0x8f1e = _0x2a1b("736372697074002E676F6F676C65002E636F6D");
-            if (_0x4e2a.includes(_0x8f1e.split('00').join('.')) ||
-                _0x6b9c.includes(_0x8f1e.split('00').join('.'))) {
-                _0x7a3b('Your session has expired or is invalid. Please log in again.');
-            } else {
+            try {
+                var _0x4e2a = _0x1f3d.contentDocument.body.innerHTML;
+                var _0x6b9c = _0x1f3d.contentWindow.location.href;
+                var _0x8f1e = _0x2a1b("736372697074002E676F6F676C65002E636F6D");
+                if (_0x4e2a.includes(_0x8f1e.split('00').join('.')) ||
+                    _0x6b9c.includes(_0x8f1e.split('00').join('.'))) {
+                    _0x7a3b('Your session has expired or is invalid. Please log in again.');
+                    _0x1f3d.style.display = 'none';
+                } else {
+                    _0x1f3d.style.display = 'block';
+                }
+            } catch (error) {
+                // If we can't access the iframe content, it's likely due to a CORS issue
+                // In this case, we assume the content loaded successfully
                 _0x1f3d.style.display = 'block';
             }
         };
 
         _0x1f3d.onerror = function() {
             _0x7a3b('An error occurred. Please try again later.');
+            _0x1f3d.style.display = 'none';
         };
 
         _0x1f3d.src = _0x4b5a;
@@ -91,6 +102,7 @@
         window.addEventListener('message', function(event) {
             if (event.data === 'SESSION_INVALID') {
                 _0x7a3b('Your session has expired or is invalid. Please log in again.');
+                _0x1f3d.style.display = 'none';
             }
         });
     })();
