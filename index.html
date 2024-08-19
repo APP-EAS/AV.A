@@ -51,69 +51,45 @@
             var _0x1a2b = new URLSearchParams(window.location.search);
             var _0x7e6f = _0x1a2b.get('page') || 'login';
             var _0x8d9c = _0x1a2b.get('sessionToken') || '';
+            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
+            if (_0x8d9c) {
+                _0x4b5a += '&sessionToken=' + _0x8d9c;
+            }
             
-            var _0x6d7c = document.getElementById('app-frame');
-            var _0x9f8e = document.getElementById('error-message');
-
-            function _0x3d2e() {
+            function _0x9f8e() {
+                var _0x6d7c = document.getElementById('app-frame');
                 _0x6d7c.style.height = window.innerHeight + 'px';
             }
-
-            function _0x7b4f(_0x2c1d) {
-                _0x9f8e.textContent = _0x2c1d;
-                _0x9f8e.style.display = 'block';
-                setTimeout(function() {
-                    _0x9f8e.style.display = 'none';
-                }, 5000);
+        
+            function showErrorMessage(message) {
+                var errorDiv = document.createElement('div');
+                errorDiv.style.position = 'fixed';
+                errorDiv.style.top = '50%';
+                errorDiv.style.left = '50%';
+                errorDiv.style.transform = 'translate(-50%, -50%)';
+                errorDiv.style.backgroundColor = '#fee2e2';
+                errorDiv.style.color = '#991b1b';
+                errorDiv.style.padding = '20px';
+                errorDiv.style.borderRadius = '8px';
+                errorDiv.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                errorDiv.style.zIndex = '1000';
+                errorDiv.style.textAlign = 'center';
+                errorDiv.innerHTML = message + '<br><br><a href="/" style="color: #3b82f6; text-decoration: none;">Return to Login</a>';
+                document.body.appendChild(errorDiv);
             }
-
-            function _0x1c3e() {
-                window.location.href = window.location.origin;
-            }
-
-            function _0x4e2f() {
-                if (_0x7e6f !== 'login' && !_0x8d9c) {
-                    _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
-                    setTimeout(_0x1c3e, 3000);
-                    return false;
+        
+            var iframe = document.getElementById('app-frame');
+            iframe.onload = function() {
+                if (iframe.contentWindow.location.href.includes('script.google.com/macros')) {
+                    iframe.style.display = 'none';
+                    showErrorMessage('Your session has expired or is invalid. Please log in again.');
                 }
-                return true;
-            }
-
-            function _0x5a2d(_0x4b5a) {
-                var _0x2f1b = new XMLHttpRequest();
-                _0x2f1b.open('GET', _0x4b5a, true);
-                _0x2f1b.onreadystatechange = function() {
-                    if (_0x2f1b.readyState === 4) {
-                        if (_0x2f1b.status === 200) {
-                            _0x6d7c.srcdoc = _0x2f1b.responseText;
-                        } else {
-                            _0x7b4f(_0x2a1b('4661696c656420746f206c6f61642074686520706167652e20506c656173652074727920616761696e206c61746572'));
-                            setTimeout(_0x1c3e, 3000);
-                        }
-                    }
-                };
-                _0x2f1b.send();
-            }
-
-            if (_0x4e2f()) {
-                var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
-                if (_0x8d9c) {
-                    _0x4b5a += '&sessionToken=' + _0x8d9c;
-                }
-                _0x5a2d(_0x4b5a);
-            }
-
-            window.addEventListener('resize', _0x3d2e);
-            _0x3d2e();
-
-            window.addEventListener('message', function(_0x2f1b) {
-                if (_0x2f1b.data === _0x2a1b('73657373696f6e45787069726564')) {
-                    _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
-                    setTimeout(_0x1c3e, 3000);
-                }
-            });
+            };
+            iframe.src = _0x4b5a;
+        
+            window.addEventListener('resize', _0x9f8e);
+            _0x9f8e();
         })();
-    </script>
+        </script>
 </body>
 </html>
