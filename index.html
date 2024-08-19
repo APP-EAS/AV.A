@@ -30,9 +30,8 @@
             background-color: #fee2e2;
             color: #991b1b;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 5px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
     </style>
@@ -61,49 +60,53 @@
             var _0x6d7c = document.getElementById('app-frame');
             var _0x9f8e = document.getElementById('error-message');
 
-            function showError(message) {
-                _0x9f8e.textContent = message;
+            function _0x3d2e() {
+                _0x6d7c.style.height = window.innerHeight + 'px';
+            }
+
+            function _0x7b4f(_0x2c1d) {
+                _0x9f8e.textContent = _0x2c1d;
                 _0x9f8e.style.display = 'block';
                 setTimeout(function() {
                     _0x9f8e.style.display = 'none';
                 }, 5000);
             }
 
-            function redirectToLogin() {
-                window.location.href = 'https://apexvoiceagent.eliteaisolutions.com/';
+            function _0x1c3e() {
+                var _0x5a2d = window.location.origin;
+                window.top.location.href = _0x5a2d;
             }
 
             _0x6d7c.onload = function() {
                 try {
-                    var _0x2c3d = _0x6d7c.contentWindow.location.href;
-                    if (_0x2c3d.includes('script.google.com')) {
-                        redirectToLogin();
-                    }
-                } catch (e) {
-                    if (e.name === 'SecurityError') {
-                        redirectToLogin();
-                    }
+                    var _0x4f1a = _0x6d7c.contentWindow.location.href;
+                } catch (_0x3b2c) {
+                    console.error(_0x2a1b('4572726f722061636365737373696e672069667261616d6520636f6e74656e743a'), _0x3b2c);
+                    _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
+                    setTimeout(_0x1c3e, 3000);
+                    return;
+                }
+
+                if (_0x4f1a.includes(_0x2a1b('6572726f72'))) {
+                    _0x7b4f(_0x2a1b('416e206572726f72206f636375727265642e205265646972656374696e6720746f206c6f67696e2070616765'));
+                    setTimeout(_0x1c3e, 3000);
                 }
             };
 
             _0x6d7c.onerror = function() {
-                showError('An error occurred. Please try again.');
-                setTimeout(redirectToLogin, 3000);
+                _0x7b4f(_0x2a1b('4661696c656420746f206c6f61642074686520706167652e20506c656173652074727920616761696e206c61746572'));
+                setTimeout(_0x1c3e, 3000);
             };
 
             _0x6d7c.src = _0x4b5a;
 
-            function _0x1c9e() {
-                _0x6d7c.style.height = window.innerHeight + 'px';
-            }
+            window.addEventListener('resize', _0x3d2e);
+            _0x3d2e();
 
-            window.addEventListener('resize', _0x1c9e);
-            _0x1c9e();
-
-            window.addEventListener('message', function(event) {
-                if (event.data === 'sessionExpired') {
-                    showError('Your session has expired. Please log in again.');
-                    setTimeout(redirectToLogin, 3000);
+            window.addEventListener('message', function(_0x2f1b) {
+                if (_0x2f1b.data === _0x2a1b('73657373696f6e45787069726564')) {
+                    _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
+                    setTimeout(_0x1c3e, 3000);
                 }
             });
         })();
