@@ -52,11 +52,6 @@
             var _0x7e6f = _0x1a2b.get('page') || 'login';
             var _0x8d9c = _0x1a2b.get('sessionToken') || '';
             
-            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
-            if (_0x8d9c) {
-                _0x4b5a += '&sessionToken=' + _0x8d9c;
-            }
-            
             var _0x6d7c = document.getElementById('app-frame');
             var _0x9f8e = document.getElementById('error-message');
 
@@ -73,32 +68,41 @@
             }
 
             function _0x1c3e() {
-                var _0x5a2d = window.location.origin;
-                window.top.location.href = _0x5a2d;
+                window.location.href = window.location.origin;
             }
 
-            _0x6d7c.onload = function() {
-                try {
-                    var _0x4f1a = _0x6d7c.contentWindow.location.href;
-                } catch (_0x3b2c) {
-                    console.error(_0x2a1b('4572726f722061636365737373696e672069667261616d6520636f6e74656e743a'), _0x3b2c);
+            function _0x4e2f() {
+                if (_0x7e6f !== 'login' && !_0x8d9c) {
                     _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
                     setTimeout(_0x1c3e, 3000);
-                    return;
+                    return false;
                 }
+                return true;
+            }
 
-                if (_0x4f1a.includes(_0x2a1b('6572726f72'))) {
-                    _0x7b4f(_0x2a1b('416e206572726f72206f636375727265642e205265646972656374696e6720746f206c6f67696e2070616765'));
+            if (_0x4e2f()) {
+                var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
+                if (_0x8d9c) {
+                    _0x4b5a += '&sessionToken=' + _0x8d9c;
+                }
+                _0x6d7c.src = _0x4b5a;
+
+                _0x6d7c.onload = function() {
+                    try {
+                        var _0x4f1a = _0x6d7c.contentWindow.location.href;
+                    } catch (_0x3b2c) {
+                        console.error(_0x2a1b('4572726f722061636365737373696e672069667261616d6520636f6e74656e743a'), _0x3b2c);
+                        _0x7b4f(_0x2a1b('53657373696f6e20657870697265642e205265646972656374696e6720746f206c6f67696e2070616765'));
+                        setTimeout(_0x1c3e, 3000);
+                        return;
+                    }
+                };
+
+                _0x6d7c.onerror = function() {
+                    _0x7b4f(_0x2a1b('4661696c656420746f206c6f61642074686520706167652e20506c656173652074727920616761696e206c61746572'));
                     setTimeout(_0x1c3e, 3000);
-                }
-            };
-
-            _0x6d7c.onerror = function() {
-                _0x7b4f(_0x2a1b('4661696c656420746f206c6f61642074686520706167652e20506c656173652074727920616761696e206c61746572'));
-                setTimeout(_0x1c3e, 3000);
-            };
-
-            _0x6d7c.src = _0x4b5a;
+                };
+            }
 
             window.addEventListener('resize', _0x3d2e);
             _0x3d2e();
