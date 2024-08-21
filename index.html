@@ -21,172 +21,38 @@
             top: 0;
             left: 0;
         }
-        #error-message, #login-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            font-family: Arial, sans-serif;
-            display: none;
-        }
-        #error-message h2, #login-container h2 {
-            margin-top: 0;
-            color: #3b82f6;
-        }
-        #error-message p {
-            margin-bottom: 20px;
-        }
-        button, input[type="submit"] {
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: Arial, sans-serif;
-            font-size: 18px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
-    <div id="loading">Loading...</div>
-    <iframe id="app-frame" style="display: none;"></iframe>
-    <div id="error-message">
-        <h2>Session Expired</h2>
-        <p>Your session has expired or is invalid. Please log in again.</p>
-        <button onclick="redirectToLogin()">Go to Login</button>
-    </div>
-    <div id="login-container">
-        <h2>Login</h2>
-        <form id="login-form" onsubmit="return handleLogin(event)">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    <iframe id="app-frame"></iframe>
     <script>
-    (function() {
-        var _0x5f4e3d = "PLACEHOLDER_STRING";
-        var _0x2a1b = function(s) {
-            return String.fromCharCode.apply(null, s.match(/.{1,2}/g).map(function(c) {
-                return parseInt(c, 16);
-            }));
-        };
-        var _0x3c4d = _0x2a1b(_0x5f4e3d);
-        var _0x1a2b = new URLSearchParams(window.location.search);
-        var _0x7e6f = _0x1a2b.get('page') || 'login';
-        var _0x8d9c = _0x1a2b.get('sessionToken') || '';
-        
-        function _0x1f3e() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('app-frame').style.display = 'none';
-            document.getElementById('error-message').style.display = 'block';
-        }
-
-        function _0x9f8e(_0x6d7c) {
-            _0x6d7c.style.height = window.innerHeight + 'px';
-        }
-
-        if (_0x7e6f === 'login') {
-            showLoginForm();
-        } else if (!_0x8d9c) {
-            redirectToLogin();
-        } else {
-            checkSession(_0x8d9c);
-        }
-
-        function showLoginForm() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('login-container').style.display = 'block';
-        }
-
-        function checkSession(sessionToken) {
-            var _0x4b5a = _0x3c4d + '?page=checkSession&sessionToken=' + sessionToken;
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', _0x4b5a, true);
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 400) {
-                    try {
-                        var data = JSON.parse(xhr.responseText);
-                        if (data.valid) {
-                            loadPage();
-                        } else {
-                            redirectToLogin();
-                        }
-                    } catch (e) {
-                        console.error('Error parsing response:', e);
-                        redirectToLogin();
-                    }
-                } else {
-                    console.error('Server error');
-                    redirectToLogin();
-                }
+        (function() {
+            var _0x5f4e3d = "PLACEHOLDER_STRING";
+            var _0x2a1b = function(s) {
+                return String.fromCharCode.apply(null, s.match(/.{1,2}/g).map(function(c) {
+                    return parseInt(c, 16);
+                }));
             };
-            xhr.onerror = function() {
-                console.error('Connection error');
-                redirectToLogin();
-            };
-            xhr.send();
-        }
-
-        function loadPage() {
-            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f + '&sessionToken=' + _0x8d9c;
-            var _0x6d7c = document.getElementById('app-frame');
-            _0x6d7c.src = _0x4b5a;
-            _0x6d7c.onload = function() {
-                document.getElementById('loading').style.display = 'none';
-                _0x6d7c.style.display = 'block';
-            };
-            window.addEventListener('resize', function() { _0x9f8e(_0x6d7c); });
-            _0x9f8e(_0x6d7c);
-        }
-    })();
-
-    function redirectToLogin() {
-        window.location.href = window.location.origin;
-    }
-
-    function handleLogin(event) {
-        event.preventDefault();
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
-        var _0x3c4d = _0x2a1b("PLACEHOLDER_STRING");
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', _0x3c4d + '?page=login', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    window.location.href = window.location.origin + '?page=upload&sessionToken=' + response.sessionToken;
-                } else {
-                    alert('Login failed. Please try again.');
-                }
-            } else {
-                alert('An error occurred. Please try again.');
+            var _0x3c4d = _0x2a1b(_0x5f4e3d);
+            var _0x1a2b = new URLSearchParams(window.location.search);
+            var _0x7e6f = _0x1a2b.get('page') || 'login';
+            var _0x8d9c = _0x1a2b.get('sessionToken') || '';
+            
+            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
+            if (_0x8d9c) {
+                _0x4b5a += '&sessionToken=' + _0x8d9c;
             }
-        };
-        xhr.send('username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
-        return false;
-    }
+            
+            document.getElementById('app-frame').src = _0x4b5a;
+
+            function _0x9f8e() {
+                var _0x6d7c = document.getElementById('app-frame');
+                _0x6d7c.style.height = window.innerHeight + 'px';
+            }
+
+            window.addEventListener('resize', _0x9f8e);
+            _0x9f8e();
+        })();
     </script>
 </body>
 </html>
