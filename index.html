@@ -12,6 +12,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            font-family: 'Arial', sans-serif;
         }
         #app-frame {
             width: 100%;
@@ -32,7 +33,7 @@
             padding: 20px;
             border-radius: 5px;
             text-align: center;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
             z-index: 1000;
         }
     </style>
@@ -59,22 +60,31 @@
             }
             
             var _0x6d7c = document.getElementById('app-frame');
+            var errorMessage = document.getElementById('error-message');
+
+            function showError(message) {
+                _0x6d7c.style.display = 'none';
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                setTimeout(function() {
+                    window.location.href = '/';
+                }, 3000);
+            }
+
             _0x6d7c.src = _0x4b5a;
 
             _0x6d7c.onload = function() {
                 try {
-                    if (_0x6d7c.contentDocument.body.innerText.includes('script.google.com refused to connect')) {
-                        _0x6d7c.style.display = 'none';
-                        var errorMessage = document.getElementById('error-message');
-                        errorMessage.textContent = 'Your session has expired. Please log in again.';
-                        errorMessage.style.display = 'block';
-                        setTimeout(function() {
-                            window.location.href = '/';
-                        }, 3000);
+                    if (!_0x6d7c.contentWindow.location.href) {
+                        throw new Error('Unable to access iframe content');
                     }
                 } catch (e) {
-                    console.error('Error checking iframe content:', e);
+                    showError('Your session has expired. Please log in again.');
                 }
+            };
+
+            _0x6d7c.onerror = function() {
+                showError('An error occurred. Please try again.');
             };
 
             function _0x9f8e() {
