@@ -21,10 +21,25 @@
             top: 0;
             left: 0;
         }
+        #error-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
     <iframe id="app-frame"></iframe>
+    <div id="error-message"></div>
     <script>
         (function() {
             var _0x5f4e3d = "PLACEHOLDER_STRING";
@@ -43,13 +58,25 @@
                 _0x4b5a += '&sessionToken=' + _0x8d9c;
             }
             
-            document.getElementById('app-frame').src = _0x4b5a;
-
+            var _0x6d7c = document.getElementById('app-frame');
+            _0x6d7c.src = _0x4b5a;
+        
+            _0x6d7c.onload = function() {
+                if (_0x6d7c.contentWindow.location.href.includes('script.google.com')) {
+                    _0x6d7c.style.display = 'none';
+                    var errorMessage = document.getElementById('error-message');
+                    errorMessage.textContent = 'Your session has expired. Please log in again.';
+                    errorMessage.style.display = 'block';
+                    setTimeout(function() {
+                        window.location.href = window.location.origin;
+                    }, 3000);
+                }
+            };
+        
             function _0x9f8e() {
-                var _0x6d7c = document.getElementById('app-frame');
                 _0x6d7c.style.height = window.innerHeight + 'px';
             }
-
+        
             window.addEventListener('resize', _0x9f8e);
             _0x9f8e();
         })();
