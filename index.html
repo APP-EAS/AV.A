@@ -68,24 +68,28 @@
                 errorMessage.style.display = 'block';
             }
 
+            function hideError() {
+                errorMessage.style.display = 'none';
+                _0x6d7c.style.display = 'block';
+            }
+
             _0x6d7c.src = _0x4b5a;
 
             _0x6d7c.onload = function() {
                 try {
-                    if (_0x6d7c.contentDocument && _0x6d7c.contentDocument.body.innerText.includes('script.google.com refused to connect')) {
+                    if (!_0x6d7c.contentWindow.location.href) {
+                        throw new Error('Cannot access frame content');
+                    }
+                    hideError();
+                } catch (e) {
+                    if (_0x7e6f !== 'login') {
                         showError('Your session has expired. Please log in again.');
                         setTimeout(function() {
                             window.location.href = window.location.origin;
                         }, 3000);
                     } else {
-                        errorMessage.style.display = 'none';
-                        _0x6d7c.style.display = 'block';
+                        hideError();
                     }
-                } catch (e) {
-                    // If we can't access the iframe content, it's likely due to a CORS issue
-                    // In this case, we assume the content loaded successfully
-                    errorMessage.style.display = 'none';
-                    _0x6d7c.style.display = 'block';
                 }
             };
 
