@@ -66,25 +66,27 @@
                 _0x6d7c.style.display = 'none';
                 errorMessage.textContent = message;
                 errorMessage.style.display = 'block';
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 3000);
             }
 
             _0x6d7c.src = _0x4b5a;
 
             _0x6d7c.onload = function() {
                 try {
-                    if (!_0x6d7c.contentWindow.location.href) {
-                        throw new Error('Unable to access iframe content');
+                    if (_0x6d7c.contentDocument && _0x6d7c.contentDocument.body.innerText.includes('script.google.com refused to connect')) {
+                        showError('Your session has expired. Please log in again.');
+                        setTimeout(function() {
+                            window.location.href = window.location.origin;
+                        }, 3000);
+                    } else {
+                        errorMessage.style.display = 'none';
+                        _0x6d7c.style.display = 'block';
                     }
                 } catch (e) {
-                    showError('Your session has expired. Please log in again.');
+                    // If we can't access the iframe content, it's likely due to a CORS issue
+                    // In this case, we assume the content loaded successfully
+                    errorMessage.style.display = 'none';
+                    _0x6d7c.style.display = 'block';
                 }
-            };
-
-            _0x6d7c.onerror = function() {
-                showError('An error occurred. Please try again.');
             };
 
             function _0x9f8e() {
