@@ -61,10 +61,17 @@
                 _0x6d7c.style.display = 'block';
             }
 
-            function handleError() {
+            function handleSessionExpired() {
                 showError('Your session has expired. Please log in again.');
                 setTimeout(function() {
-                    window.location.href = '/';
+                    window.location.href = '/?page=login';
+                }, 3000);
+            }
+
+            function handleError() {
+                showError('An error occurred. Please try again.');
+                setTimeout(function() {
+                    window.location.reload();
                 }, 3000);
             }
 
@@ -78,12 +85,18 @@
                         throw new Error('Cannot access frame content');
                     }
                 } catch (e) {
-                    handleError();
+                    if (_0x7e6f !== 'login') {
+                        handleSessionExpired();
+                    } else {
+                        hideError();
+                    }
                 }
             };
 
             window.addEventListener('message', function(event) {
-                if (event.data === 'iframe_load_error') {
+                if (event.data === 'session_expired') {
+                    handleSessionExpired();
+                } else if (event.data === 'error_occurred') {
                     handleError();
                 }
             }, false);
