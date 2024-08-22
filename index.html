@@ -98,7 +98,7 @@
                     handleSessionExpired();
                 } else if (event.data === 'error_occurred') {
                     handleError();
-                } else if (event.data.type === 'set_session_token') {
+                } else if (event.data.type === 'login_success') {
                     localStorage.setItem('sessionToken', event.data.token);
                     window.location.href = '/?page=upload&sessionToken=' + event.data.token;
                 }
