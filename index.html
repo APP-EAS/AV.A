@@ -77,15 +77,15 @@
 
             _0x6d7c.onload = function() {
                 try {
-                    if (!_0x6d7c.contentWindow.location.href) {
-                        throw new Error('Cannot access frame content');
+                    if (_0x6d7c.contentDocument.body.innerText.includes('Unable to open the file')) {
+                        throw new Error('Invalid session');
                     }
                     hideError();
                 } catch (e) {
                     if (_0x7e6f !== 'login') {
                         showError('Your session has expired. Please log in again.');
                         setTimeout(function() {
-                            window.location.href = window.location.origin;
+                            window.location.href = '/';
                         }, 3000);
                     } else {
                         hideError();
