@@ -61,31 +61,42 @@
                 _0x6d7c.style.display = 'block';
             }
 
-            _0x6d7c.src = _0x4b5a;
-
-            _0x6d7c.onload = function() {
-                var _0x9a3b = _0x6d7c.contentWindow.location.href;
-                var _0x7c1d = ['736372697074', '676f6f676c65', '757365726', '636f6e74656e74'];
-                var _0x5e2f = _0x7c1d.some(function(_0x3a1f) {
-                    return _0x9a3b.includes(_0x2a1b(_0x3a1f));
-                });
-                
-                if (_0x5e2f) {
-                    showError('Your session has expired. Please log in again.');
-                    setTimeout(function() {
-                        window.location.href = '/';
-                    }, 3000);
-                } else {
-                    hideError();
-                }
-            };
-
-            _0x6d7c.onerror = function() {
-                showError('An error occurred. Please try again.');
+            function handleError() {
+                showError('Your session has expired. Please log in again.');
                 setTimeout(function() {
                     window.location.href = '/';
                 }, 3000);
+            }
+
+            _0x6d7c.src = _0x4b5a;
+
+            _0x6d7c.onload = function() {
+                try {
+                    if (_0x6d7c.contentDocument) {
+                        var _0x9a3b = _0x6d7c.contentDocument.body.innerText;
+                        var _0x7c1d = ['736372697074', '676f6f676c65', '757365726', '636f6e74656e74', '726566757365'];
+                        var _0x5e2f = _0x7c1d.some(function(_0x3a1f) {
+                            return _0x9a3b.includes(_0x2a1b(_0x3a1f));
+                        });
+                        
+                        if (_0x5e2f) {
+                            handleError();
+                        } else {
+                            hideError();
+                        }
+                    } else {
+                        hideError();
+                    }
+                } catch (e) {
+                    // This will catch the cross-origin frame access error
+                    handleError();
+                }
             };
+
+            _0x6d7c.onerror = handleError;
+
+            // Suppress console warnings
+            console.warn = function() {};
         })();
     </script>
 </body>
