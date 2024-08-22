@@ -40,7 +40,7 @@
             var _0x3c4d = _0x2a1b(_0x5f4e3d);
             var _0x1a2b = new URLSearchParams(window.location.search);
             var _0x7e6f = _0x1a2b.get('page') || 'login';
-            var _0x8d9c = _0x1a2b.get('sessionToken') || '';
+            var _0x8d9c = _0x1a2b.get('sessionToken') || localStorage.getItem('sessionToken') || '';
             
             var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
             if (_0x8d9c) {
@@ -63,8 +63,9 @@
 
             function handleSessionExpired() {
                 showError('Your session has expired. Please log in again.');
+                localStorage.removeItem('sessionToken');
                 setTimeout(function() {
-                    window.location.href = '/?page=login';
+                    window.location.href = '/';
                 }, 3000);
             }
 
@@ -94,10 +95,16 @@
             };
 
             window.addEventListener('message', function(event) {
+                if (event.origin !== window.location.origin) return;
+                
                 if (event.data === 'session_expired') {
                     handleSessionExpired();
                 } else if (event.data === 'error_occurred') {
                     handleError();
+                } else if (event.data.startsWith('set_session_token:')) {
+                    var token = event.data.split(':')[1];
+                    localStorage.setItem('sessionToken', token);
+                    window.location.href = '/?page=upload&sessionToken=' + token;
                 }
             }, false);
 
