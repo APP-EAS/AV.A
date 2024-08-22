@@ -6,32 +6,20 @@
     <title>ApexVoice Agent</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-        }
-        #app-frame {
+        #app-frame, #error-message {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
-            position: absolute;
-            top: 0;
-            left: 0;
         }
         #error-message {
             display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             background-color: #fee2e2;
             color: #991b1b;
-            padding: 20px;
-            border-radius: 5px;
+            justify-content: center;
+            align-items: center;
             text-align: center;
             font-family: 'Arial', sans-serif;
             z-index: 1000;
@@ -65,7 +53,7 @@
             function showError(message) {
                 _0x6d7c.style.display = 'none';
                 errorMessage.textContent = message;
-                errorMessage.style.display = 'block';
+                errorMessage.style.display = 'flex';
             }
 
             function hideError() {
@@ -76,29 +64,28 @@
             _0x6d7c.src = _0x4b5a;
 
             _0x6d7c.onload = function() {
-                try {
-                    if (_0x6d7c.contentDocument && _0x6d7c.contentDocument.body.innerText.includes('Unable to open the file')) {
-                        throw new Error('Invalid session');
-                    }
+                var _0x9a3b = _0x6d7c.contentWindow.location.href;
+                var _0x7c1d = ['736372697074', '676f6f676c65', '757365726', '636f6e74656e74'];
+                var _0x5e2f = _0x7c1d.some(function(_0x3a1f) {
+                    return _0x9a3b.includes(_0x2a1b(_0x3a1f));
+                });
+                
+                if (_0x5e2f) {
+                    showError('Your session has expired. Please log in again.');
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 3000);
+                } else {
                     hideError();
-                } catch (e) {
-                    if (_0x7e6f !== 'login') {
-                        showError('Your session has expired. Please log in again.');
-                        setTimeout(function() {
-                            window.location.href = '/';
-                        }, 3000);
-                    } else {
-                        hideError();
-                    }
                 }
             };
 
-            function _0x9f8e() {
-                _0x6d7c.style.height = window.innerHeight + 'px';
-            }
-
-            window.addEventListener('resize', _0x9f8e);
-            _0x9f8e();
+            _0x6d7c.onerror = function() {
+                showError('An error occurred. Please try again.');
+                setTimeout(function() {
+                    window.location.href = '/';
+                }, 3000);
+            };
         })();
     </script>
 </body>
