@@ -72,26 +72,21 @@
 
             _0x6d7c.onload = function() {
                 try {
-                    if (_0x6d7c.contentDocument) {
-                        var _0x9a3b = _0x6d7c.contentDocument.body.innerText;
-                        var _0x7c1d = ['736372697074', '676f6f676c65', '757365726', '636f6e74656e74', '726566757365'];
-                        var _0x5e2f = _0x7c1d.some(function(_0x3a1f) {
-                            return _0x9a3b.includes(_0x2a1b(_0x3a1f));
-                        });
-                        
-                        if (_0x5e2f) {
-                            handleError();
-                        } else {
-                            hideError();
-                        }
-                    } else {
+                    if (_0x6d7c.contentWindow.location.href) {
                         hideError();
+                    } else {
+                        throw new Error('Cannot access frame content');
                     }
                 } catch (e) {
-                    // This will catch the cross-origin frame access error
                     handleError();
                 }
             };
+
+            window.addEventListener('message', function(event) {
+                if (event.data === 'iframe_load_error') {
+                    handleError();
+                }
+            }, false);
 
             _0x6d7c.onerror = handleError;
 
