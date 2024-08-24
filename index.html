@@ -6,29 +6,25 @@
     <title>ApexVoice Agent</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        #app-frame, #error-message {
-            position: fixed;
-            top: 0;
-            left: 0;
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #app-frame {
             width: 100%;
             height: 100%;
             border: none;
-        }
-        #error-message {
-            display: none;
-            background-color: #fee2e2;
-            color: #991b1b;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-family: 'Arial', sans-serif;
-            z-index: 1000;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
 <body>
     <iframe id="app-frame"></iframe>
-    <div id="error-message"></div>
     <script>
         (function() {
             var _0x5f4e3d = "PLACEHOLDER_STRING";
@@ -41,62 +37,27 @@
             var _0x1a2b = new URLSearchParams(window.location.search);
             var _0x7e6f = _0x1a2b.get('page') || 'login';
             var _0x8d9c = _0x1a2b.get('sessionToken') || '';
-            
             var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
             if (_0x8d9c) {
                 _0x4b5a += '&sessionToken=' + _0x8d9c;
             }
-            
             var _0x6d7c = document.getElementById('app-frame');
-            var errorMessage = document.getElementById('error-message');
-
-            function showError(message) {
-                _0x6d7c.style.display = 'none';
-                errorMessage.textContent = message;
-                errorMessage.style.display = 'flex';
-            }
-
-            function hideError() {
-                errorMessage.style.display = 'none';
-                _0x6d7c.style.display = 'block';
-            }
-
-            function handleSessionExpired() {
-                showError('Your session has expired. Please log in again.');
-                setTimeout(function() {
-                    window.location.href = '/';
-                }, 3000);
-            }
-
-            function handleError() {
-                showError('An error occurred. Please try again.');
-                setTimeout(function() {
-                    window.location.reload();
-                }, 3000);
-            }
-
-            _0x6d7c.src = _0x4b5a;
-
             _0x6d7c.onload = function() {
                 try {
-                    if (_0x6d7c.contentWindow.location.href) {
-                        hideError();
-                    } else {
-                        throw new Error('Cannot access frame content');
+                    var _0x9f8e = _0x6d7c.contentWindow.location.href;
+                    if (_0x9f8e !== _0x4b5a) {
+                        window.location.href = '/';
                     }
                 } catch (e) {
-                    if (_0x7e6f !== 'login') {
-                        handleSessionExpired();
-                    } else {
-                        hideError();
-                    }
+                    window.location.href = '/';
                 }
             };
-
-            _0x6d7c.onerror = handleError;
-
-            // Suppress console warnings
-            console.warn = function() {};
+            _0x6d7c.src = _0x4b5a;
+            function _0x9f8e() {
+                _0x6d7c.style.height = window.innerHeight + 'px';
+            }
+            window.addEventListener('resize', _0x9f8e);
+            _0x9f8e();
         })();
     </script>
 </body>
