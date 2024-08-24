@@ -47,13 +47,11 @@
             _0x6d7c.onload = function() {
                 try {
                     var _0x9f8e = _0x6d7c.contentWindow.location.href;
-                    if (_0x9f8e !== _0x4b5a && _0x7e6f !== '') {
+                    if (_0x9f8e.includes('unable to open')) {
                         window.location.href = '/';
                     }
                 } catch (e) {
-                    if (_0x7e6f !== '') {
-                        window.location.href = '/';
-                    }
+                    window.location.href = '/';
                 }
             };
             _0x6d7c.src = _0x4b5a;
