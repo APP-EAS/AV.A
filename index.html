@@ -45,8 +45,12 @@
             
             var _0x6d7c = document.getElementById('app-frame');
             _0x6d7c.onload = function() {
-                if (_0x6d7c.contentDocument.body.textContent.includes('unable to open')) {
-                    _0x6d7c.src = '/';
+                try {
+                    if (_0x6d7c.contentWindow.document.body.innerText.includes('unable to open')) {
+                        window.location.href = '/';
+                    }
+                } catch (e) {
+                    window.location.href = '/';
                 }
             };
             _0x6d7c.src = _0x4b5a;
