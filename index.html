@@ -35,26 +35,25 @@
             };
             var _0x3c4d = _0x2a1b(_0x5f4e3d);
             var _0x1a2b = new URLSearchParams(window.location.search);
-            var _0x7e6f = _0x1a2b.get('page') || 'login';
+            var _0x7e6f = _0x1a2b.get('page') || '';
             var _0x8d9c = _0x1a2b.get('sessionToken') || '';
             var _0x4b5a = _0x3c4d;
             
-            if (_0x7e6f !== 'login' || _0x8d9c) {
-                _0x4b5a += '?page=' + _0x7e6f;
-                if (_0x8d9c) {
-                    _0x4b5a += '&sessionToken=' + _0x8d9c;
-                }
+            if (_0x7e6f && _0x8d9c) {
+                _0x4b5a += '?page=' + _0x7e6f + '&sessionToken=' + _0x8d9c;
             }
             
             var _0x6d7c = document.getElementById('app-frame');
             _0x6d7c.onload = function() {
                 try {
                     var _0x9f8e = _0x6d7c.contentWindow.location.href;
-                    if (_0x9f8e !== _0x4b5a) {
+                    if (_0x9f8e !== _0x4b5a && _0x7e6f !== '') {
                         window.location.href = '/';
                     }
                 } catch (e) {
-                    window.location.href = '/';
+                    if (_0x7e6f !== '') {
+                        window.location.href = '/';
+                    }
                 }
             };
             _0x6d7c.src = _0x4b5a;
