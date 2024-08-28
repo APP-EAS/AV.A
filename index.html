@@ -38,7 +38,7 @@
             var _0x7e6f = _0x1a2b.get('page') || 'login';
             var _0x8d9c = _0x1a2b.get('sessionToken') || '';
             var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
-
+        
             function checkSession(callback) {
                 if (_0x7e6f !== 'login' && _0x8d9c) {
                     fetch(_0x3c4d + '?page=checkSession&sessionToken=' + _0x8d9c)
@@ -57,7 +57,7 @@
                     callback(true);
                 }
             }
-
+        
             checkSession(function(isValid) {
                 if (isValid) {
                     if (_0x8d9c) {
@@ -65,10 +65,10 @@
                     }
                     document.getElementById('app-frame').src = _0x4b5a;
                 } else {
-                    window.location.href = window.location.origin;
+                    window.top.location.href = window.location.origin;
                 }
             });
-
+        
             function _0x9f8e() {
                 var _0x6d7c = document.getElementById('app-frame');
                 _0x6d7c.style.height = window.innerHeight + 'px';
