@@ -35,29 +35,42 @@
             };
             var _0x3c4d = _0x2a1b(_0x5f4e3d);
             var _0x1a2b = new URLSearchParams(window.location.search);
-            var _0x7e6f = _0x1a2b.get('page') || '';
+            var _0x7e6f = _0x1a2b.get('page') || 'login';
             var _0x8d9c = _0x1a2b.get('sessionToken') || '';
-            var _0x4b5a = _0x3c4d;
-            
-            if (_0x7e6f || _0x8d9c) {
-                _0x4b5a += '?' + _0x1a2b.toString();
-            }
-            
-            var _0x6d7c = document.getElementById('app-frame');
-            _0x6d7c.onload = function() {
-                if (_0x7e6f !== '') {
-                    try {
-                        if (_0x6d7c.contentWindow.document.body.innerText.includes('unable to open')) {
-                            window.location.href = '/';
-                        }
-                    } catch (e) {
-                        window.location.href = '/';
-                    }
+            var _0x4b5a = _0x3c4d + '?page=' + _0x7e6f;
+
+            function checkSession(callback) {
+                if (_0x7e6f !== 'login' && _0x8d9c) {
+                    fetch(_0x3c4d + '?page=checkSession&sessionToken=' + _0x8d9c)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.isValid) {
+                                callback(true);
+                            } else {
+                                callback(false);
+                            }
+                        })
+                        .catch(() => {
+                            callback(false);
+                        });
+                } else {
+                    callback(true);
                 }
-            };
-            _0x6d7c.src = _0x4b5a;
-            
+            }
+
+            checkSession(function(isValid) {
+                if (isValid) {
+                    if (_0x8d9c) {
+                        _0x4b5a += '&sessionToken=' + _0x8d9c;
+                    }
+                    document.getElementById('app-frame').src = _0x4b5a;
+                } else {
+                    window.location.href = window.location.origin;
+                }
+            });
+
             function _0x9f8e() {
+                var _0x6d7c = document.getElementById('app-frame');
                 _0x6d7c.style.height = window.innerHeight + 'px';
             }
             window.addEventListener('resize', _0x9f8e);
