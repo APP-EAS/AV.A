@@ -78,11 +78,12 @@ textarea {
 
 .navbar {
   background-color: #3b82f6;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  height: 60px;
 }
 
 .hamburger {
@@ -94,7 +95,7 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   width: 30px;
-  height: 21px;
+  height: 22px;
   cursor: pointer;
   z-index: 1002;
 }
@@ -107,10 +108,19 @@ textarea {
   transition: all 0.3s ease;
 }
 
+#sign-out-button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+}
+
 .navbar-links {
   display: none;
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -142,18 +152,12 @@ textarea {
 .navbar-links a {
   font-size: 24px;
   margin: 1rem 0;
+  padding: 0.5rem 1rem;
 }
 
 .navbar a:hover,
 #sign-out-button:hover {
   background-color: #2563eb;
-}
-
-#sign-out-button {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .custom-alert {
@@ -303,6 +307,12 @@ label {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+}
+
+#prompt-selector,
+.prompt-action-btn {
+  height: 38px;
+  box-sizing: border-box;
 }
 
 #prompt-textarea {
@@ -727,23 +737,6 @@ tr:nth-child(even) {
     padding: 0.5rem;
   }
 
-  .navbar {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0.5rem;
-  }
-
-  .navbar-links {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .navbar a,
-  #sign-out-button {
-    text-align: center;
-    font-size: 14px;
-  }
-
   h1 {
     font-size: 20px;
   }
@@ -850,6 +843,44 @@ tr:nth-child(even) {
   }
 }
 
+@media (min-width: 768px) {
+  .navbar {
+    height: 70px;
+  }
+
+  .navbar-links {
+    top: 70px;
+  }
+
+  #sign-out-button {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar {
+    height: 80px;
+    padding: 0 2rem;
+  }
+
+  .navbar-links {
+    top: 80px;
+  }
+
+  .hamburger {
+    left: 2rem;
+  }
+
+  #sign-out-button {
+    right: 2rem;
+    font-size: 18px;
+  }
+
+  #filter-container {
+    flex-wrap: nowrap;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .cell-content:hover::after,
   th:hover::after {
@@ -886,10 +917,4 @@ th .header-content {
   text-overflow: ellipsis;
   max-width: 200px;
   display: block;
-}
-
-@media (min-width: 1024px) {
-  .navbar {
-    padding: 1rem 2rem;
-  }
 }
