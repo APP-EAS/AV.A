@@ -84,6 +84,8 @@ textarea {
   align-items: center;
   position: relative;
   height: 60px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hamburger {
@@ -738,9 +740,9 @@ tr:nth-child(even) {
   margin: 0.25rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .navbar {
-    height: 70px;
+    height: 60px;
   }
 
   .settings-grid {
@@ -752,7 +754,7 @@ tr:nth-child(even) {
   }
 
   h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   label {
@@ -852,13 +854,13 @@ tr:nth-child(even) {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .navbar {
-    height: 75px;
+    height: 70px;
   }
 
   .navbar-links {
-    top: 75px;
+    top: 70px;
   }
 
   #sign-out-button {
@@ -926,4 +928,54 @@ th .header-content {
   text-overflow: ellipsis;
   max-width: 200px;
   display: block;
+}
+
+/* Ensure navbar is visible on all pages and screen sizes */
+body {
+  padding-top: 60px; /* Adjust based on navbar height */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Specific adjustments for data page */
+.data-page .container {
+  padding-top: 1rem;
+}
+
+/* Ensure consistent spacing below navbar for all pages */
+.upload-page .container,
+.settings-page .container,
+.data-page .container {
+  padding-top: 1rem;
+}
+
+/* Adjust container padding for smaller screens */
+@media (max-width: 767px) {
+  body {
+    padding-top: 60px;
+  }
+  
+  .upload-page .container,
+  .settings-page .container,
+  .data-page .container {
+    padding-top: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    padding-top: 70px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-top: 80px;
+  }
 }
