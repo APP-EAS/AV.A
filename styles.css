@@ -78,7 +78,7 @@ textarea {
 
 .navbar {
   background-color: #3b82f6;
-  padding: 0.75rem 1rem;
+  padding: 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,8 +94,8 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 22px;
+  width: 24px;
+  height: 18px;
   cursor: pointer;
   z-index: 1002;
 }
@@ -103,7 +103,7 @@ textarea {
 .hamburger span {
   display: block;
   width: 100%;
-  height: 3px;
+  height: 2px;
   background-color: white;
   transition: all 0.3s ease;
 }
@@ -113,8 +113,18 @@ textarea {
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  padding: 0.5rem 1rem;
-  font-size: 16px;
+  padding: 0.4rem 0.8rem;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#sign-out-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .navbar-links {
@@ -136,28 +146,28 @@ textarea {
 }
 
 .navbar a,
-#sign-out-button {
+.navbar-links a {
   color: white;
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: background-color 0.3s;
-  font-size: 14px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   background: none;
 }
 
 .navbar-links a {
-  font-size: 24px;
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 20px;
 }
 
 .navbar a:hover,
+.navbar-links a:hover,
 #sign-out-button:hover {
-  background-color: #2563eb;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .custom-alert {
@@ -729,20 +739,24 @@ tr:nth-child(even) {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    height: 70px;
+  }
+
   .settings-grid {
     grid-template-columns: 1fr;
   }
 
   .container {
-    padding: 0.5rem;
+    padding: 1rem;
   }
 
   h1 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   input[type="text"],
@@ -751,33 +765,28 @@ tr:nth-child(even) {
   input[type="date"],
   select,
   textarea {
-    font-size: 0.8rem;
-    height: 34px;
+    font-size: 14px;
+    height: 38px;
   }
 
   .info-icon {
-    width: 14px;
-    height: 14px;
-    line-height: 14px;
-    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 11px;
   }
 
   .tooltip .tooltiptext {
-    width: 180px;
-    font-size: 0.7rem;
+    width: 200px;
+    font-size: 0.8rem;
   }
 
   #save-button {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   #prompt-textarea {
     font-size: 14px;
-  }
-
-  #prompt-textarea::-webkit-resizer {
-    width: 20px;
-    height: 20px;
   }
 
   .table-container {
@@ -791,18 +800,18 @@ tr:nth-child(even) {
 
   th,
   td {
-    padding: 8px 10px;
-    font-size: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
   }
 
   .cell-content-hover {
     max-width: 95%;
     max-height: 95%;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .action-btn {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .controls-container {
@@ -831,29 +840,29 @@ tr:nth-child(even) {
   }
 
   .file-input-wrapper .btn {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .file-name {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   #upload-button {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) and (max-width: 1023px) {
   .navbar {
-    height: 70px;
+    height: 75px;
   }
 
   .navbar-links {
-    top: 70px;
+    top: 75px;
   }
 
   #sign-out-button {
-    font-size: 18px;
+    font-size: 15px;
   }
 }
 
@@ -873,7 +882,7 @@ tr:nth-child(even) {
 
   #sign-out-button {
     right: 2rem;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   #filter-container {
